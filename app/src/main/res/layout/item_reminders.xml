@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.cricbuzz.medicbuddy.utils.Constants"/>
+        <import type="com.cricbuzz.medicbuddy.models.Reminders"/>
+        <import type="android.view.View"/>
+        <variable
+            name="reminder"
+            type="com.cricbuzz.medicbuddy.models.Reminders"/>
+
+    </data>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{reminder.medicineName}"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@{reminder.dosage}"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:drawableStart="@drawable/ic_add_alarm_24dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:gravity="center_vertical"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:text="@{reminder.time}"
+        android:textSize="16sp" />
+
+    <com.cricbuzz.medicbuddy.ui.common.custom.FlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/ReminderTextView"
+            android:text="@string/mon"
+            android:visibility="@{Reminders.isReminderFor(reminder.days,Constants.MON_DAY)? View.VISIBLE : View.GONE}"
+            />
+
+        <TextView
+            style="@style/ReminderTextView"
+            android:text="@string/tue"
+            android:visibility="@{Reminders.isReminderFor(reminder.days,Constants.TUE_DAY)? View.VISIBLE : View.GONE}"
+            />
+
+        <TextView
+            style="@style/ReminderTextView"
+            android:text="@string/wed"
+            android:visibility="@{Reminders.isReminderFor(reminder.days,Constants.WED_DAY)? View.VISIBLE : View.GONE}"
+            />
+
+        <TextView
+            style="@style/ReminderTextView"
+            android:text="@string/thu"
+            android:visibility="@{Reminders.isReminderFor(reminder.days,Constants.THU_DAY)? View.VISIBLE : View.GONE}"
+            />
+
+        <TextView
+            style="@style/ReminderTextView"
+            android:text="@string/fri"
+            android:visibility="@{Reminders.isReminderFor(reminder.days,Constants.FRI_DAY)? View.VISIBLE : View.GONE}"
+            />
+
+        <TextView
+            style="@style/ReminderTextView"
+            android:text="@string/sat"
+            android:visibility="@{Reminders.isReminderFor(reminder.days,Constants.SAT_DAY)? View.VISIBLE : View.GONE}"
+            />
+
+        <TextView
+            style="@style/ReminderTextView"
+            android:text="@string/sun"
+            android:visibility="@{Reminders.isReminderFor(reminder.days,Constants.SUN_DAY)? View.VISIBLE : View.GONE}"/>
+
+
+    </com.cricbuzz.medicbuddy.ui.common.custom.FlowLayout>
+
+
+</LinearLayout>
+
+</layout>

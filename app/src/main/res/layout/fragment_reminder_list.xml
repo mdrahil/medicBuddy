@@ -1,0 +1,33 @@
+<layout>
+
+    <data>
+
+        <import type="android.view.View"/>
+        <variable
+            name="model"
+            type="com.cricbuzz.medicbuddy.ui.reminders.reminderList.BindingModel"/>
+    </data>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.cricbuzz.medicbuddy.ui.reminders.reminderList.ReminderListFragment">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvReminders"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:text="@string/no_reminders_text"
+        android:visibility="@{model.hasReminders ? View.GONE : View.VISIBLE}" />
+
+
+</FrameLayout>
+</layout>

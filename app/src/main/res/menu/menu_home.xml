@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.cricbuzz.medicbuddy.ui.reminders.RemindersActivity">
+
+    <item
+        android:id="@+id/action_report"
+        android:orderInCategory="100"
+        android:title="@string/report"
+        app:showAsAction="never" >
+
+        <menu>
+            <item
+                android:id="@+id/action_skipped"
+                android:title="@string/skipped" />
+
+            <item
+                android:id="@+id/action_taken"
+                android:title="@string/taken" />
+
+        </menu>
+
+    </item>
+
+
+</menu>
