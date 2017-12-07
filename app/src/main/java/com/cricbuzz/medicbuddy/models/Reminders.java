@@ -16,18 +16,18 @@ import java.util.List;
 @TypeConverters(DayTypeConverters.class)
 public class Reminders {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey
+    private long id;
     private String medicineName;
     private List<String> days;
     private String dosage;
     private String time;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

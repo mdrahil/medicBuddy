@@ -8,6 +8,7 @@ import android.arch.persistence.room.Query;
 
 import com.cricbuzz.medicbuddy.models.Alarms;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -24,5 +25,6 @@ public interface AlarmsDao {
     @Query("SELECT * FROM Alarms")
     LiveData<List<Alarms>> loadAlarms();
 
-
+    @Query("UPDATE Alarms SET status = :statusTaken,actionDate = :time where id = :alarmId")
+    void updateStatus(long alarmId, int statusTaken, long time);
 }

@@ -48,7 +48,7 @@ public class DateUtils {
             final SimpleDateFormat sdf = new SimpleDateFormat("H:mm", Locale.getDefault());
             final Date dateObj = sdf.parse(time);
             return new SimpleDateFormat(Constants.TIME_FORMAT, Locale.getDefault()).format(dateObj);
-        } catch (final ParseException e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return "";
@@ -63,14 +63,30 @@ public class DateUtils {
             return "";
         }
     }
+
     public static long getAlarmTime(int dayOfWeek, String time) {
-        // Add this day of the week line to your existing code
+
         try {
             Date date = new SimpleDateFormat(Constants.TIME_FORMAT, Locale.getDefault()).parse(time);
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);
-            calendar.set(Calendar.DAY_OF_WEEK,dayOfWeek);
-            return calendar.getTimeInMillis();
+
+            int hrs = calendar.get(Calendar.HOUR);
+            int min = calendar.get(Calendar.MINUTE);
+            int amPm = calendar.get(Calendar.AM_PM);
+
+            Calendar alarmCalendar = Calendar.getInstance();
+            alarmCalendar.set(Calendar.DAY_OF_WEEK, dayOfWeek);
+            alarmCalendar.set(Calendar.HOUR, hrs);
+            alarmCalendar.set(Calendar.MINUTE, min);
+            alarmCalendar.set(Calendar.SECOND, 0);
+            alarmCalendar.set(Calendar.AM_PM, amPm);
+
+            if (alarmCalendar.getTimeInMillis() < System.currentTimeMillis()) {
+                alarmCalendar.add(Calendar.DAY_OF_YEAR, 7);
+            }
+
+            return alarmCalendar.getTimeInMillis();
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -79,7 +95,7 @@ public class DateUtils {
 
     public static int getDayOfWeek(String day) {
 
-        switch (day){
+        switch (day) {
             case Constants.SUN_DAY:
                 return 1;
             case Constants.MON_DAY:
@@ -97,7 +113,8 @@ public class DateUtils {
         }
         return 0;
     }
-    public static String getTime(){
+
+    public static String getTime() {
         return new SimpleDateFormat(Constants.TIME_FORMAT, Locale.getDefault()).format(new Date());
     }
 }

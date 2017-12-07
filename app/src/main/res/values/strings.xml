@@ -25,4 +25,9 @@
     <string name="take_medic">Take %s %s</string>
     <string name="notification_body">Hi it\'s time to take your medicine. Please take %s %s</string>
     <string name="skip">Skip</string>
+    <string name="medicine_name_required">Medicine name required</string>
+    <string name="enter_dosage">Please enter dosage</string>
+    <string name="select_day">Select at least one day in week</string>
+    <string name="set_time_alert">Specify a time for your reminder</string>
+    <string name="dismiss">dismiss</string>
 </resources>

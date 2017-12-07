@@ -17,19 +17,19 @@ import java.util.Date;
         childColumns = "reminderId"))
 @TypeConverters(DateConverters.class)
 public class Alarms {
-    public int getReminderId() {
+    public long getReminderId() {
         return reminderId;
     }
 
-    public void setReminderId(int reminderId) {
+    public void setReminderId(long reminderId) {
         this.reminderId = reminderId;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -60,9 +60,9 @@ public class Alarms {
     public static final int STATUS_NO_ACTION = 0;
     public static final int STATUS_SKIPPED = 1;
     public static final int STATUS_TAKEN = 2;
-    private int reminderId;
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    private long reminderId;
+    @PrimaryKey
+    private long id;
     private Date reminderDate;
     private int status = STATUS_NO_ACTION;
     private Date actionDate;

@@ -5,11 +5,16 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cricbuzz.medicbuddy.R;
@@ -176,6 +181,32 @@ public class DialogUtil {
 
     public static void closeDialogFragment(DialogFragment dialogFragment) {
         if (dialogFragment != null) dialogFragment.dismiss();
+    }
+
+    public static Snackbar showSnackBar(View anyView, String msg) {
+        //Toast.makeText(context.getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+        final Snackbar snackBar = Snackbar.make(anyView, msg, Snackbar.LENGTH_LONG);
+        snackBar.setActionTextColor(Color.WHITE);
+        View view = snackBar.getView();
+        view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.colorPrimaryDark));
+        TextView tv = (TextView)
+                view.findViewById(android.support.design.R.id.snackbar_text);
+        tv.setTextColor(Color.WHITE);
+        tv.setMaxLines(5);
+        snackBar.setAction(R.string.dismiss, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackBar.dismiss();
+            }
+        });
+        snackBar.show();
+        return snackBar;
+    }
+
+    public static Snackbar showSnackBar(View anyView, int msg) {
+        //Toast.makeText(context.getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+        Resources res = anyView.getContext().getResources();
+        return showSnackBar(anyView, res.getString(msg));
     }
 
 

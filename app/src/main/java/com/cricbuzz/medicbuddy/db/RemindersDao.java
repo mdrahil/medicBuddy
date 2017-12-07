@@ -25,5 +25,5 @@ public interface RemindersDao {
     LiveData<List<Reminders>> loadReminders();
 
     @Query("SELECT * FROM Reminders where id = :reminderId")
-    Reminders loadReminder(int reminderId);
+    Reminders loadReminder(long reminderId);
 }

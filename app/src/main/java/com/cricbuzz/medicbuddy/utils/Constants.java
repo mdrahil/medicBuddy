@@ -12,5 +12,5 @@ public class Constants {
     public static final String FRI_DAY = "fri";
     public static final String SAT_DAY = "sat";
     public static final String SUN_DAY = "sun";
-    public static final String TIME_FORMAT = "K:mm a";
+    public static final String TIME_FORMAT = "h:mm a";
 }

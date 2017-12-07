@@ -17,7 +17,7 @@ public class AlarmScheduler {
         AlarmManager manager =(AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         PendingIntent operation =
-                ReminderAlarmService.getReminderPendingIntent(context, reminders.getId(), ReminderAlarmService.ACTION_TRIGGER_REMINDER);
+                ReminderAlarmService.getReminderPendingIntent(context, reminders.getId(),0, ReminderAlarmService.ACTION_TRIGGER_REMINDER);
 
         for (String day :
                 reminders.getDays()) {
@@ -26,7 +26,7 @@ public class AlarmScheduler {
             if (dayOfWeek != 0) {
                 long alarmTime = DateUtils.getAlarmTime(dayOfWeek, reminders.getTime());
                 if (manager != null) {
-                    manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, 24 * 60 * 60 * 1000, operation);
+                    manager.setRepeating(AlarmManager.RTC_WAKEUP, alarmTime, AlarmManager.INTERVAL_DAY * 7, operation);
                 }
             }
         }

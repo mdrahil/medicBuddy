@@ -2,6 +2,7 @@ package com.cricbuzz.medicbuddy.ui.newReminder;
 
 
 import android.app.TimePickerDialog;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.cricbuzz.medicbuddy.databinding.FragmentNewReminderBinding;
 import com.cricbuzz.medicbuddy.di.Injectable;
 import com.cricbuzz.medicbuddy.utils.DateUtils;
 import com.cricbuzz.medicbuddy.utils.DialogUtil;
+import com.cricbuzz.medicbuddy.utils.Utils;
 import com.cricbuzz.medicbuddy.viewmodel.AppViewModelFactory;
 
 import java.util.Calendar;
@@ -63,10 +65,16 @@ public class NewReminderFragment extends BaseFragment implements Injectable, Eve
         mBinding.setHandler(this);
         mBinding.setModel(mViewModel.bindingModel());
 
+
+        mViewModel.snackbarMessage().observe(this, msg -> {
+            Utils.hideKeyboard(getContext());
+            DialogUtil.showSnackBar(mBinding.getRoot(), msg);
+        });
+
         mViewModel.reminderSavedEvent().observe(this, reminders -> {
             String msg = getString(R.string.reminder_saved) + " " + reminders.getMedicineName();
-            AlarmScheduler.scheduleAlarm(getContext(),reminders);
-            DialogUtil.showToast(getContext(),msg);
+            AlarmScheduler.scheduleAlarm(getContext(), reminders);
+            DialogUtil.showToast(getContext(), msg);
             Timber.e(msg);
             getActivity().finish();
         });
@@ -91,6 +99,6 @@ public class NewReminderFragment extends BaseFragment implements Injectable, Eve
     @Override
     public void onTimeSet(TimePicker timePicker, int hour, int min) {
 
-        mViewModel.setTime(DateUtils.getTimeFromTimePicker(hour,min));
+        mViewModel.setTime(DateUtils.getTimeFromTimePicker(hour, min));
     }
 }

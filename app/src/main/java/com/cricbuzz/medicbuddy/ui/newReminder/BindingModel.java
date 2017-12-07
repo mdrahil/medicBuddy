@@ -19,6 +19,8 @@ public class BindingModel {
     public final ObservableField<String> medicName = new ObservableField<>();
     public final ObservableField<String> dosage = new ObservableField<>();
     public final ObservableField<String> time = new ObservableField<>();
+    public final ObservableField<String> errorMedicName = new ObservableField<>();
+    public final ObservableField<String> errorDosage= new ObservableField<>();
 
     public final ObservableBoolean mon = new ObservableBoolean();
     public final ObservableBoolean tue = new ObservableBoolean();

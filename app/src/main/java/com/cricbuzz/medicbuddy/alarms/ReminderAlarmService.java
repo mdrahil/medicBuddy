@@ -28,6 +28,7 @@ import java.util.Date;
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
+import timber.log.Timber;
 
 public class ReminderAlarmService extends Service {
     private static final String TAG = ReminderAlarmService.class.getSimpleName();
@@ -38,6 +39,7 @@ public class ReminderAlarmService extends Service {
 
     //   private static final int NOTIFICATION_ID = 42;
     private static final String EXTRA_REMINDER_ID = "extra_reminder_id";
+    private static final String EXTRA_ALARM_ID = "extra_alarm_id";
 
 
     @Inject
@@ -49,12 +51,14 @@ public class ReminderAlarmService extends Service {
     @Inject
     AppExecutors executors;
     private Ringtone ringtone;
-    private Alarms alarms;
 
     //This is a deep link intent, and needs the task stack
-    public static PendingIntent getReminderPendingIntent(Context context, int reminderId, String action) {
+    public static PendingIntent getReminderPendingIntent(Context context, long reminderId, long alarmId, String action) {
         Intent intent = new Intent(context, ReminderAlarmService.class);
         intent.putExtra(EXTRA_REMINDER_ID, reminderId);
+        if (alarmId != 0) {
+            intent.putExtra(EXTRA_ALARM_ID, alarmId);
+        }
         intent.setAction(action);
         return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
@@ -68,16 +72,17 @@ public class ReminderAlarmService extends Service {
     public IBinder onBind(Intent intent) {
         return null;
     }
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         AndroidInjection.inject(this);
 
-        int reminderId = intent.getIntExtra(EXTRA_REMINDER_ID, 0);
+        long reminderId = intent.getLongExtra(EXTRA_REMINDER_ID, 0);
         Reminders reminder = remindersDao.loadReminder(reminderId);
 
         if (ACTION_TRIGGER_REMINDER.equals(intent.getAction())) {
 
-            updateDb(reminder);
+            long alarmId = updateDb(reminder);
             playAlarmTone();
 
             Intent action = new Intent(this, RemindersActivity.class);
@@ -85,12 +90,13 @@ public class ReminderAlarmService extends Service {
                     .addNextIntentWithParentStack(action)
                     .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            PendingIntent skipIntent = getReminderPendingIntent(this, reminderId, ACTION_SKIP);
+            PendingIntent skipIntent = getReminderPendingIntent(this, reminderId, alarmId, ACTION_SKIP);
 
-            PendingIntent takenIntent = getReminderPendingIntent(this, reminderId, ACTION_TAKEN);
+            PendingIntent takenIntent = getReminderPendingIntent(this, reminderId, alarmId, ACTION_TAKEN);
 
             String msg = String.format(getString(R.string.notification_body), reminder.getMedicineName(), reminder.getDosage());
             String channelId = "reminder_chanel";
+
             Notification notification = new NotificationCompat.Builder(this, channelId)
                     .setContentTitle(String.format(getString(R.string.take_medic), reminder.getMedicineName(), reminder.getDosage()))
                     .setContentText(msg)
@@ -104,8 +110,7 @@ public class ReminderAlarmService extends Service {
                     .setDefaults(Notification.DEFAULT_ALL)
                     .setPriority(NotificationCompat.PRIORITY_HIGH)
                     .setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(msg)
-                    )
+                            .bigText(msg))
                     .setOngoing(true)
                     .build();
 
@@ -113,50 +118,56 @@ public class ReminderAlarmService extends Service {
             if (manager != null) {
                 // manager.notify(reminderId, notification);
             }
-            startForeground(reminderId, notification);
+            startForeground((int) reminderId, notification);
         } else if (ACTION_SKIP.equals(intent.getAction())) {
-            updateStatus(Alarms.STATUS_SKIPPED);
+
+            long alarmId = intent.getLongExtra(EXTRA_ALARM_ID, 0);
+            updateStatus(alarmId, Alarms.STATUS_SKIPPED);
             stopAlarmTone();
             stopForeground(true);
+
         } else if (ACTION_TAKEN.equals(intent.getAction())) {
-            updateStatus(Alarms.STATUS_TAKEN);
+
+            long alarmId = intent.getLongExtra(EXTRA_ALARM_ID, 0);
+            updateStatus(alarmId, Alarms.STATUS_TAKEN);
             stopAlarmTone();
             stopForeground(true);
         }
         return START_NOT_STICKY;
     }
 
-    private void updateStatus(int statusTaken) {
+    private void updateStatus(long alarmId, int statusTaken) {
         executors.diskIO().execute(() -> {
             try {
                 db.beginTransaction();
-                alarms.setStatus(statusTaken);
-                alarmsDao.saveAlarm(alarms);
+                alarmsDao.updateStatus(alarmId, statusTaken, new Date().getTime());
+                Timber.i("alarm id " + alarmId + " update");
                 db.setTransactionSuccessful();
-            }finally {
+            } finally {
                 db.endTransaction();
             }
         });
     }
 
-    private void updateDb(Reminders reminder) {
-
+    private long updateDb(Reminders reminder) {
+        Alarms alarms = new Alarms();
+        alarms.setReminderId(reminder.getId());
+        alarms.setReminderDate(new Date());
+        alarms.setActionDate(new Date());
+        alarms.setStatus(Alarms.STATUS_NO_ACTION);
+        alarms.setId(System.currentTimeMillis());
         executors.diskIO().execute(() -> {
             try {
                 db.beginTransaction();
-                alarms = new Alarms();
-                alarms.setReminderId(reminder.getId());
-                alarms.setReminderDate(new Date());
-                alarms.setActionDate(new Date());
-                alarms.setStatus(Alarms.STATUS_NO_ACTION);
                 long id = alarmsDao.saveAlarm(alarms);
-                alarms.setId((int) id);
+                Timber.i("alarm id " + id + " inserted");
                 db.setTransactionSuccessful();
             } finally {
                 db.endTransaction();
             }
 
         });
+        return alarms.getId();
     }
 
     @Override

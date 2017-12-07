@@ -32,16 +32,12 @@ public class ReminderRepository {
         this.remindersDao = remindersDao;
     }
 
-    public MutableLiveData<Reminders> saveReminders(Reminders reminder) {
-        MutableLiveData<Reminders> remindersMutableLiveData = new MutableLiveData<>();
+    public void saveReminders(Reminders reminder) {
         executors.diskIO().execute(() -> {
             long id = remindersDao.saveReminder(reminder);
             Timber.i("reminder id " + id + " inserted");
-            reminder.setId((int) id);
-            executors.mainThread().execute(() -> remindersMutableLiveData.setValue(reminder));
 
         });
-        return remindersMutableLiveData;
     }
 
     public LiveData<List<Reminders>> loadReminders() {
