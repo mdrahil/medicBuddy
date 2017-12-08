@@ -30,4 +30,9 @@
     <string name="select_day">Select at least one day in week</string>
     <string name="set_time_alert">Specify a time for your reminder</string>
     <string name="dismiss">dismiss</string>
+    <string name="title_activity_report">ReportActivity</string>
+    <string name="lbl_report">Report</string>
+    <string name="day">Day</string>
+    <string name="action_at">Action At</string>
+    <string name="status">Status</string>
 </resources>

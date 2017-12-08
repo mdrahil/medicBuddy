@@ -52,7 +52,6 @@ public class ReminderAlarmService extends Service {
     AppExecutors executors;
     private Ringtone ringtone;
 
-    //This is a deep link intent, and needs the task stack
     public static PendingIntent getReminderPendingIntent(Context context, long reminderId, long alarmId, String action) {
         Intent intent = new Intent(context, ReminderAlarmService.class);
         intent.putExtra(EXTRA_REMINDER_ID, reminderId);

@@ -20,7 +20,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.newReminder.NewReminderActivity" />
-        <activity android:name=".ui.report.ReportActivity"></activity>
+        <activity
+            android:name=".ui.report.ReportActivity"
+            android:label="@string/title_activity_report"
+            android:theme="@style/AppTheme" />
 
         <service android:name=".alarms.ReminderAlarmService" />
     </application>

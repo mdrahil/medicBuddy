@@ -27,26 +27,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@{reminder.medicineName}"
-        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@{reminder.dosage}"
-        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Subtitle" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:drawablePadding="8dp"
-        android:drawableStart="@drawable/ic_add_alarm_24dp"
+        android:drawableStart="@drawable/ic_add_alarm_18dp"
         android:fontFamily="@font/quicksand_bold"
         android:gravity="center_vertical"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
         android:text="@{reminder.time}"
-        android:textSize="16sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     <com.cricbuzz.medicbuddy.ui.common.custom.FlowLayout
         android:layout_width="match_parent"

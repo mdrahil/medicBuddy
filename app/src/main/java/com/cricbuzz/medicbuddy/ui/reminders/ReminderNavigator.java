@@ -7,7 +7,7 @@ import com.cricbuzz.medicbuddy.R;
 import com.cricbuzz.medicbuddy.base.BaseNavigationController;
 import com.cricbuzz.medicbuddy.ui.newReminder.NewReminderActivity;
 import com.cricbuzz.medicbuddy.ui.reminders.reminderList.ReminderListFragment;
-import com.cricbuzz.medicbuddy.ui.reminders.report.ReportFragment;
+import com.cricbuzz.medicbuddy.ui.report.ReportFragment;
 
 import javax.inject.Inject;
 

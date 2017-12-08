@@ -1,4 +1,4 @@
-package com.cricbuzz.medicbuddy.ui.reminders.report;
+package com.cricbuzz.medicbuddy.ui.report;
 
 
 import android.os.Bundle;
@@ -32,9 +32,8 @@ public class ReportFragment extends BaseFragment {
     }
 
 
-    public static Fragment newInstance(int status) {
+    public static Fragment newInstance() {
         Bundle bundle = new Bundle();
-        bundle.putInt(EXTRA_REPORT_TYPE, status);
         Fragment fragment = new ReportFragment();
         fragment.setArguments(bundle);
         return fragment;
