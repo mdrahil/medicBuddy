@@ -23,6 +23,7 @@ import com.cricbuzz.medicbuddy.models.Reminders;
 import com.cricbuzz.medicbuddy.repository.common.AppExecutors;
 import com.cricbuzz.medicbuddy.ui.reminders.RemindersActivity;
 
+import java.sql.Time;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -75,7 +76,7 @@ public class ReminderAlarmService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         AndroidInjection.inject(this);
-
+        Timber.e("Alarm fired at " + System.currentTimeMillis());
         long reminderId = intent.getLongExtra(EXTRA_REMINDER_ID, 0);
         Reminders reminder = remindersDao.loadReminder(reminderId);
 

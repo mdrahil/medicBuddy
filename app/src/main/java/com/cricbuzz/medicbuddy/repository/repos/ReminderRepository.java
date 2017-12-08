@@ -7,6 +7,7 @@ import com.cricbuzz.medicbuddy.db.AppDb;
 import com.cricbuzz.medicbuddy.db.RemindersDao;
 import com.cricbuzz.medicbuddy.models.Reminders;
 import com.cricbuzz.medicbuddy.repository.common.AppExecutors;
+import com.cricbuzz.medicbuddy.ui.report.ReportQuery;
 
 import java.util.List;
 
@@ -43,4 +44,10 @@ public class ReminderRepository {
     public LiveData<List<Reminders>> loadReminders() {
         return remindersDao.loadReminders();
     }
+
+    public LiveData<Reminders> loadReminder(long id) {
+        return remindersDao.loadReminderAsLiveData(id);
+    }
+
+
 }

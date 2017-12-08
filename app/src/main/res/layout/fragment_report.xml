@@ -58,6 +58,7 @@
 
 
             <TextView
+                android:id="@+id/tvMonth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
@@ -71,6 +72,7 @@
                 android:text="January" />
 
             <TextView
+                android:id="@+id/tvYear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"

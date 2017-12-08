@@ -15,6 +15,11 @@ import com.cricbuzz.medicbuddy.ui.common.DataBoundListAdapter;
 
 public class ReminderListAdapter extends DataBoundListAdapter<Reminders, ItemRemindersBinding> {
 
+    ItemClickHandler mItemClickHandler;
+
+    public ReminderListAdapter(ItemClickHandler mItemClickHandler) {
+        this.mItemClickHandler = mItemClickHandler;
+    }
 
     @Override
     protected ItemRemindersBinding createBinding(ViewGroup parent) {
@@ -24,6 +29,7 @@ public class ReminderListAdapter extends DataBoundListAdapter<Reminders, ItemRem
     @Override
     protected void bind(ItemRemindersBinding binding, Reminders item) {
         binding.setReminder(item);
+        binding.setClickHandler(mItemClickHandler);
     }
 
     @Override
@@ -34,5 +40,9 @@ public class ReminderListAdapter extends DataBoundListAdapter<Reminders, ItemRem
     @Override
     protected boolean areContentsTheSame(Reminders oldItem, Reminders newItem) {
         return oldItem.getId() == newItem.getId();
+    }
+
+    public interface ItemClickHandler {
+        void showReport(Reminders reminders);
     }
 }

@@ -13,11 +13,15 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListPopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cricbuzz.medicbuddy.R;
+
+import java.util.Calendar;
 
 
 /**
@@ -26,7 +30,6 @@ import com.cricbuzz.medicbuddy.R;
 public class DialogUtil {
 
     private static final String TAG = DialogUtil.class.getSimpleName();
-
 
 
     public static void showProgressDialog(@NonNull ProgressDialog progressDialog) {
@@ -50,6 +53,7 @@ public class DialogUtil {
 
         }
     }
+
     public static void showToast(@NonNull Context context, String msg) {
         Toast.makeText(context.getApplicationContext(), msg, Toast.LENGTH_LONG).show();
     }
@@ -126,7 +130,6 @@ public class DialogUtil {
         return builder.create();
 
     }
-
 
 
     public static android.support.v7.app.AlertDialog showOkCancelDialog(Context context, String message, String ok, String cancel, final DialogInterface.OnClickListener dialogListener) {
@@ -209,5 +212,25 @@ public class DialogUtil {
         return showSnackBar(anyView, res.getString(msg));
     }
 
+    public static ListPopupWindow createPopupFromResource(Context context, int stringRes) {
 
+        String[] months = context.getResources().getStringArray(stringRes);
+        ListPopupWindow popupWindow = new ListPopupWindow(context);
+        popupWindow.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, months));
+        return popupWindow;
+
+    }
+
+
+    public static ListPopupWindow createYearPopup(Context context, int noYears) {
+        Calendar calender = Calendar.getInstance();
+        int currentYear = calender.get(Calendar.YEAR);
+        String[] years = new String[noYears];
+        for (int i = 0; i < noYears; i++) {
+            years[i] = String.valueOf(currentYear - i);
+        }
+        ListPopupWindow popupWindow = new ListPopupWindow(context);
+        popupWindow.setAdapter(new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, years));
+        return popupWindow;
+    }
 }

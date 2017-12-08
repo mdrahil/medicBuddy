@@ -17,8 +17,8 @@ public class ReportNavigator extends BaseNavigationController {
         super(activity);
     }
 
-    void navigateToReport() {
-        fragmentManagerHelper().replaceFragment(R.id.container, ReportFragment.newInstance());
+    void navigateToReport(long reportId) {
+        fragmentManagerHelper().replaceFragment(R.id.container, ReportFragment.newInstance(reportId));
     }
 
 

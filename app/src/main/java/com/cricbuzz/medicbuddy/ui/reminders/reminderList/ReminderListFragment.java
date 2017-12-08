@@ -16,6 +16,8 @@ import com.cricbuzz.medicbuddy.R;
 import com.cricbuzz.medicbuddy.base.BaseFragment;
 import com.cricbuzz.medicbuddy.databinding.FragmentReminderListBinding;
 import com.cricbuzz.medicbuddy.di.Injectable;
+import com.cricbuzz.medicbuddy.models.Reminders;
+import com.cricbuzz.medicbuddy.ui.reminders.ReminderNavigator;
 import com.cricbuzz.medicbuddy.viewmodel.AppViewModelFactory;
 
 import javax.inject.Inject;
@@ -31,6 +33,8 @@ public class ReminderListFragment extends BaseFragment implements Injectable {
     AppViewModelFactory viewModelFactory;
     private ReminderListViewModel mViewModel;
     private ReminderListAdapter mAdapter;
+    @Inject
+    ReminderNavigator navigator;
 
     public ReminderListFragment() {
         // Required empty public constructor
@@ -53,7 +57,7 @@ public class ReminderListFragment extends BaseFragment implements Injectable {
 
         mBinding.rvReminders.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.rvReminders.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        mAdapter = new ReminderListAdapter();
+        mAdapter = new ReminderListAdapter(reminders -> navigator.navigateToReport(reminders.getId()));
         mBinding.rvReminders.setAdapter(mAdapter);
 
         mViewModel.loadReminders().observe(this, reminders -> {

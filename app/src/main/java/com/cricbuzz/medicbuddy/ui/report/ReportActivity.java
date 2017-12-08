@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 
 import com.cricbuzz.medicbuddy.R;
 import com.cricbuzz.medicbuddy.base.BaseToolBarActivity;
+import com.cricbuzz.medicbuddy.utils.Constants;
 
 import javax.inject.Inject;
 
@@ -27,8 +28,10 @@ public class ReportActivity extends BaseToolBarActivity implements HasSupportFra
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (savedInstanceState == null){
-            navigator.navigateToReport();
+            long reportId = getIntent().getLongExtra(Constants.EXTRA_REPORT_ID, 0);
+            navigator.navigateToReport(reportId);
         }
 
     }

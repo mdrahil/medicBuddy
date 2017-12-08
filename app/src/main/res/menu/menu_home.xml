@@ -7,7 +7,8 @@
         android:id="@+id/action_report"
         android:orderInCategory="100"
         android:title="@string/report"
-        app:showAsAction="never" >
+        android:icon="@drawable/ic_filter_list_white_24dp"
+        app:showAsAction="always" >
 
         <menu>
             <item
@@ -17,6 +18,10 @@
             <item
                 android:id="@+id/action_taken"
                 android:title="@string/taken" />
+
+            <item
+                android:id="@+id/action_show_all"
+                android:title="@string/all" />
 
         </menu>
 

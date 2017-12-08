@@ -1,8 +1,14 @@
 package com.cricbuzz.medicbuddy.repository.repos;
 
+import android.arch.lifecycle.LiveData;
+
 import com.cricbuzz.medicbuddy.db.AlarmsDao;
 import com.cricbuzz.medicbuddy.db.AppDb;
+import com.cricbuzz.medicbuddy.models.Alarms;
 import com.cricbuzz.medicbuddy.repository.common.AppExecutors;
+import com.cricbuzz.medicbuddy.ui.report.ReportQuery;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -24,4 +30,7 @@ public class ReportRepository {
         this.alarmsDao = alarmsDao;
     }
 
+    public LiveData<List<Alarms>> loadReport(ReportQuery query) {
+        return alarmsDao.loadAlarms();
+    }
 }
