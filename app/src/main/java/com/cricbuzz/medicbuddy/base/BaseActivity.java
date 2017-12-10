@@ -18,8 +18,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Activity mThis;
     protected String TAG;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);

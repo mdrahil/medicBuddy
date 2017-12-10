@@ -27,7 +27,7 @@ public class RemindersActivity extends BaseToolBarActivity implements HasSupport
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setUpToolbar(R.string.reminders,0);
         if (savedInstanceState == null) {
             navigator.navigateToReminderList();
         }
@@ -44,6 +44,6 @@ public class RemindersActivity extends BaseToolBarActivity implements HasSupport
 
     @Override
     public String provideTitle() {
-        return getString(R.string.app_name);
+        return getString(R.string.reminders);
     }
 }

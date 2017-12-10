@@ -75,4 +75,6 @@ public class ReminderListFragment extends BaseFragment implements Injectable {
     public static Fragment newInstance() {
         return new ReminderListFragment();
     }
+
+
 }

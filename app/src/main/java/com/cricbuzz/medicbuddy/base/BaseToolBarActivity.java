@@ -33,7 +33,10 @@ public abstract class BaseToolBarActivity extends BaseActivity implements TitleP
         if (mToolbar != null) {
             //mToolbar.setTitle(title);
             setTitle(title);
-            mToolbar.setNavigationIcon(homeIconResId);
+            if (homeIconResId != 0)
+                mToolbar.setNavigationIcon(homeIconResId);
+            else
+                mToolbar.setNavigationIcon(null);
         } else {
             Timber.e(TAG, "can not find toolbar ");
         }
@@ -48,7 +51,6 @@ public abstract class BaseToolBarActivity extends BaseActivity implements TitleP
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 
     /**

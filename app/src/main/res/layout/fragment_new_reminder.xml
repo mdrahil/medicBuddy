@@ -66,6 +66,7 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/days"
+                android:fontFamily="@font/quicksand_bold"
                 android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
 
             <com.cricbuzz.medicbuddy.ui.common.custom.FlowLayout

@@ -1,9 +1,6 @@
 package com.cricbuzz.medicbuddy.base;
 
 
-import android.app.ProgressDialog;
-import android.arch.lifecycle.LifecycleRegistry;
-import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,11 +14,8 @@ import java.lang.reflect.Field;
 /**
  * A simple {@link Fragment} subclass.
  */
-public abstract class BaseFragment extends Fragment implements LifecycleRegistryOwner {
+public abstract class BaseFragment extends Fragment {
     protected String TAG = "";
-    private ProgressDialog mProgressDialog;
-    //  protected LogInRespBean.LogInData mUserData;
-    LifecycleRegistry registry = new LifecycleRegistry(this);
 
 
     @Override
@@ -30,8 +24,6 @@ public abstract class BaseFragment extends Fragment implements LifecycleRegistry
         TAG = getClass().getSimpleName();
 
     }
-
-
 
 
     public String getName() {
@@ -54,15 +46,6 @@ public abstract class BaseFragment extends Fragment implements LifecycleRegistry
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    protected void onBackPress() {
-        getActivity().onBackPressed();
-    }
-
-    @Override
-    public LifecycleRegistry getLifecycle() {
-        return registry;
     }
 
 
