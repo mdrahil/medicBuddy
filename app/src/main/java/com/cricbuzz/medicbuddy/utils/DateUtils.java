@@ -24,22 +24,6 @@ public class DateUtils {
         return new TimePickerDialog(context, listener, hour, minute, false);
     }
 
-    /*  public static String getTimeFromTimePicker(int selectedHour, int selectedMinute) {
-          String aMpM = "AM";
-          if (selectedHour > 11) {
-              aMpM = "PM";
-          }
-          //Make the 24 hour time format to 12 hour time format
-          int currentHour;
-          if (selectedHour > 11)
-              currentHour = selectedHour - 12;
-          else
-              currentHour = selectedHour;
-          if (currentHour == 0) currentHour = 12;
-
-          String time = currentHour + ":" + String.format(Locale.getDefault(), "%02d", selectedMinute) + " " + aMpM;
-          return time;
-      }*/
     public static String getTimeFromTimePicker(int selectedHour, int selectedMinute) {
 
         final String time = selectedHour + ":" + selectedMinute;
@@ -116,5 +100,16 @@ public class DateUtils {
 
     public static String getTime() {
         return new SimpleDateFormat(Constants.TIME_FORMAT, Locale.getDefault()).format(new Date());
+    }
+    public static String getTime(Date date) {
+        return new SimpleDateFormat(Constants.TIME_FORMAT, Locale.getDefault()).format(date);
+    }
+    public static String getDayOfMonth(Date date) {
+        SimpleDateFormat df = new SimpleDateFormat("d");
+        return  df.format(date);
+    }
+    public static String getDayOfWeek(Date date) {
+        SimpleDateFormat df = new SimpleDateFormat("EEE");
+        return  df.format(date);
     }
 }

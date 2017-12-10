@@ -21,7 +21,7 @@ public interface RemindersDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long saveReminder(Reminders reminders);
 
-    @Query("SELECT * FROM Reminders")
+    @Query("SELECT * FROM Reminders ORDER BY id DESC")
     LiveData<List<Reminders>> loadReminders();
 
     @Query("SELECT * FROM Reminders where id = :reminderId")

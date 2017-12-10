@@ -15,11 +15,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.google.gson.GsonBuilder;
-
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
 import java.util.Calendar;
 import java.util.List;
 
@@ -85,23 +81,6 @@ public class Utils {
 
 
 
-    public static <T> String toJson(T model) {
-        return new GsonBuilder()
-                .excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
-                .create().toJson(model);
-    }
-
-    public static <T> T fromJson(String json, Class<T> clazz) {
-        return new GsonBuilder()
-                .excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
-                .create().fromJson(json, clazz);
-    }
-
-    public static <T> List<T> fromJsonToList(String json, Type listType) {
-        return new GsonBuilder()
-                .excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)
-                .create().fromJson(json, listType);
-    }
 
     public static void hideView(View view) {
         if (view != null)

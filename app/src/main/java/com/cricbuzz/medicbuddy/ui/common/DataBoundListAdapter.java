@@ -112,12 +112,14 @@ public abstract class DataBoundListAdapter<T, V extends ViewDataBinding>
                     }
                     items = update;
                     diffResult.dispatchUpdatesTo(DataBoundListAdapter.this);
-
+                    itemsUpdated();
                 }
             }.execute();
         }
     }
+    protected  void itemsUpdated(){
 
+    }
     protected abstract void bind(V binding, T item);
 
     protected abstract boolean areItemsTheSame(T oldItem, T newItem);

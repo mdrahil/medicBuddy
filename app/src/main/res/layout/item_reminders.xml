@@ -37,7 +37,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{reminder.medicineName}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large" />
+            android:fontFamily="@font/quicksand_bold"
+            android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large"
+            android:transitionName="name"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +55,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginTop="8dp"
             android:drawablePadding="8dp"
-            android:drawableStart="@drawable/ic_add_alarm_18dp"
+            android:drawableStart="@drawable/ic_alarm_white_18dp"
             android:fontFamily="@font/quicksand_bold"
             android:gravity="center_vertical"
             android:text="@{reminder.time}"

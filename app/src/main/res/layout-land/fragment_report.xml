@@ -15,17 +15,21 @@
             type="com.cricbuzz.medicbuddy.ui.report.EventHandlers" />
     </data>
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_margin="16dp"
+        tools:context=".ui.report.ReportFragment">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            tools:context=".ui.report.ReportFragment">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
@@ -36,7 +40,7 @@
                 tools:text="Paracetamol" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
@@ -56,46 +60,58 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 tools:text="06:00 pm" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <TextView
+                android:id="@+id/tvMonth"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:drawableEnd="@android:drawable/arrow_down_float"
+                android:drawableStart="@drawable/ic_date_range_white_18dp"
+                android:drawablePadding="8dp"
+                android:focusable="true"
+                android:gravity="center"
+                android:minEms="9"
+                android:onClick="@{()->clickHandler.selectMonth()}"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingEnd="16dp"
+                android:text="@{model.month}" />
 
+            <TextView
+                android:id="@+id/tvYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:drawableEnd="@android:drawable/arrow_down_float"
+                android:drawableStart="@drawable/ic_date_range_white_18dp"
+                android:drawablePadding="8dp"
+                android:minEms="4"
+                android:gravity="center"
+                android:onClick="@{()->clickHandler.selectYear()}"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingEnd="16dp"
+                android:text="@{model.year}" />
 
-                <TextView
-                    android:id="@+id/tvMonth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:drawableEnd="@android:drawable/arrow_down_float"
-                    android:drawableStart="@drawable/ic_date_range_white_18dp"
-                    android:drawablePadding="8dp"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:paddingEnd="8dp"
-                    android:focusable="true"
-                    android:gravity="center"
-                    android:minEms="9"
-                    android:onClick="@{()->clickHandler.selectMonth()}"
-                    android:text="@{model.month}" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tvYear"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="?attr/selectableItemBackground"
-                    android:drawableEnd="@android:drawable/arrow_down_float"
-                    android:drawableStart="@drawable/ic_date_range_white_18dp"
-                    android:drawablePadding="8dp"
-                    android:paddingStart="8dp"
-                    android:gravity="center"
-                    android:onClick="@{()->clickHandler.selectYear()}"
-                    android:paddingTop="16dp"
-                    android:paddingBottom="16dp"
-                    android:text="@{model.year}" />
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="?android:attr/listDivider"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            />
 
-            </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical"
+
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -138,8 +154,8 @@
                 android:id="@+id/rvReport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
         </LinearLayout>
 
-    </ScrollView>
+    </LinearLayout>
+
 </layout>

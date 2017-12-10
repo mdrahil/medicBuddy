@@ -2,7 +2,6 @@ package com.cricbuzz.medicbuddy.ui.newReminder;
 
 
 import android.app.TimePickerDialog;
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -75,7 +74,7 @@ public class NewReminderFragment extends BaseFragment implements Injectable, Eve
             String msg = getString(R.string.reminder_saved) + " " + reminders.getMedicineName();
             AlarmScheduler.scheduleAlarm(getContext(), reminders);
             DialogUtil.showToast(getContext(), msg);
-            Timber.e(msg);
+            Timber.i(msg);
             getActivity().finish();
         });
     }
@@ -94,6 +93,11 @@ public class NewReminderFragment extends BaseFragment implements Injectable, Eve
     public void setReminder() {
         mViewModel.setReminder();
 
+    }
+
+    @Override
+    public void onDayClicked() {
+        Utils.hideKeyboard(getContext());
     }
 
     @Override

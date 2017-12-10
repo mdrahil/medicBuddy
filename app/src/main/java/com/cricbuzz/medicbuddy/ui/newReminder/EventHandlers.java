@@ -8,4 +8,5 @@ public interface EventHandlers {
 
     void setTime();
     void setReminder();
+    void onDayClicked();
 }

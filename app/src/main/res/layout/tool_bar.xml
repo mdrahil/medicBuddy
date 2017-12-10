@@ -4,7 +4,8 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/tool_bar"
@@ -14,9 +15,8 @@
             android:theme="@style/AppTheme"
             app:layout_collapseMode="none"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:titleTextColor="@android:color/white"
-            >
-
+            app:titleTextAppearance="@style/ToolbarTextAppearance"
+            app:titleTextColor="@android:color/white">
 
 
         </android.support.v7.widget.Toolbar>

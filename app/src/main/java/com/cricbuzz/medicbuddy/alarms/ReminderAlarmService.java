@@ -23,7 +23,6 @@ import com.cricbuzz.medicbuddy.models.Reminders;
 import com.cricbuzz.medicbuddy.repository.common.AppExecutors;
 import com.cricbuzz.medicbuddy.ui.reminders.RemindersActivity;
 
-import java.sql.Time;
 import java.util.Date;
 
 import javax.inject.Inject;
@@ -60,7 +59,9 @@ public class ReminderAlarmService extends Service {
             intent.putExtra(EXTRA_ALARM_ID, alarmId);
         }
         intent.setAction(action);
-        return PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        int reqCode = alarmId == 0 ? (int) (System.currentTimeMillis() * reminderId) : (int) alarmId;
+        Timber.d("alarm req code"+reqCode);
+        return PendingIntent.getService(context, reqCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     /*public ReminderAlarmService() {

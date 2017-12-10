@@ -4,7 +4,9 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
+import android.graphics.Color;
 
+import com.cricbuzz.medicbuddy.R;
 import com.cricbuzz.medicbuddy.db.DateConverters;
 
 import java.util.Date;
@@ -66,4 +68,24 @@ public class Alarms {
     private Date reminderDate;
     private int status = STATUS_NO_ACTION;
     private Date actionDate;
+
+    public int getStatusStringResource() {
+        if (status == STATUS_SKIPPED) {
+            return R.string.skipped;
+        } else if (status == STATUS_TAKEN) {
+            return R.string.taken;
+        } else {
+            return R.string.pending;
+        }
+    }
+
+    public int getStatusColor() {
+        if (status == STATUS_SKIPPED) {
+            return Color.parseColor("#E53935");
+        } else if (status == STATUS_TAKEN) {
+            return Color.parseColor("#43A047");
+        } else {
+            return Color.parseColor("#546E7A");
+        }
+    }
 }

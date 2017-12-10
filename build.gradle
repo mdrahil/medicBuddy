@@ -1,14 +1,13 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+
     repositories {
         google()
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -28,13 +27,13 @@ task clean(type: Delete) {
 }
 
 ext {
-    arch_version = "1.0.3"
-    support_version = "26.0.2"
-    dagger_version = "2.11"
-    retrofit_version = "2.2.0"
+    support_version = "26.1.0"
     constraint_layout_version = "1.0.2"
-    glide_version = "3.7.0"
-    timber_version = "4.5.1"
-    okhttp_version = "3.8.0"
+    arch_version = "1.0.0"
+    dagger_version = "2.13"
+    timber_version = "4.6.0"
+    junit_version = "4.12"
+    support_test_runner = "1.0.1"
+    espresso_core = "3.0.1"
 
 }

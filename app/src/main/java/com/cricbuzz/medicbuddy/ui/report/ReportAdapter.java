@@ -22,16 +22,17 @@ public class ReportAdapter extends DataBoundListAdapter<Alarms, ItemReportBindin
 
     @Override
     protected void bind(ItemReportBinding binding, Alarms item) {
-
+            binding.setReport(item);
     }
 
     @Override
     protected boolean areItemsTheSame(Alarms oldItem, Alarms newItem) {
-        return false;
+        return oldItem.getId() == newItem.getId()
+                && oldItem.getStatus() == newItem.getStatus();
     }
 
     @Override
     protected boolean areContentsTheSame(Alarms oldItem, Alarms newItem) {
-        return false;
+        return oldItem.getId() == newItem.getId();
     }
 }

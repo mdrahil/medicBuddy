@@ -8,7 +8,6 @@ import android.arch.persistence.room.Query;
 
 import com.cricbuzz.medicbuddy.models.Alarms;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -22,9 +21,12 @@ public interface AlarmsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long saveAlarm(Alarms reminders);
 
-    @Query("SELECT * FROM Alarms")
-    LiveData<List<Alarms>> loadAlarms();
+    @Query("SELECT * FROM Alarms WHERE reminderId = :reminderId AND reminderDate  between :fromTimeInMilis AND :toInMilis")
+    LiveData<List<Alarms>> loadAlarms(long reminderId, long fromTimeInMilis, long toInMilis);
 
-    @Query("UPDATE Alarms SET status = :statusTaken,actionDate = :time where id = :alarmId")
+    @Query("SELECT * FROM Alarms WHERE reminderId = :reminderId AND  reminderDate  BETWEEN :fromTimeInMilis AND :toInMilis AND status = :status")
+    LiveData<List<Alarms>> loadAlarms(long reminderId, long fromTimeInMilis, long toInMilis, int status);
+
+    @Query("UPDATE Alarms SET status = :statusTaken,actionDate = :time WHERE id = :alarmId")
     void updateStatus(long alarmId, int statusTaken, long time);
 }

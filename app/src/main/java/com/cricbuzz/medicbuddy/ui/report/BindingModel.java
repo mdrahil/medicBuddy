@@ -1,6 +1,5 @@
 package com.cricbuzz.medicbuddy.ui.report;
 
-import android.database.Observable;
 import android.databinding.ObservableField;
 
 import javax.inject.Inject;
@@ -12,10 +11,11 @@ import javax.inject.Inject;
 public class BindingModel {
 
 
-    ObservableField<String> month = new ObservableField<>();
-    ObservableField<String> year = new ObservableField<>();
+    public final ObservableField<String> month = new ObservableField<>();
+    public final ObservableField<String> year = new ObservableField<>();
 
     @Inject
     public BindingModel() {
+
     }
 }

@@ -1,17 +1,19 @@
 package com.cricbuzz.medicbuddy.ui.report;
 
-import android.arch.core.util.Function;
+import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModel;
 
+import com.cricbuzz.medicbuddy.R;
 import com.cricbuzz.medicbuddy.models.Alarms;
 import com.cricbuzz.medicbuddy.models.Reminders;
 import com.cricbuzz.medicbuddy.repository.repos.ReminderRepository;
 import com.cricbuzz.medicbuddy.repository.repos.ReportRepository;
 import com.cricbuzz.medicbuddy.utils.AbsentLiveData;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,6 +24,7 @@ import javax.inject.Inject;
 
 public class ReportViewModel extends ViewModel {
 
+    private final String[] monthsNames;
     private ReminderRepository reminderRepository;
     private BindingModel bindingModel;
     private ReportRepository reportRepository;
@@ -32,10 +35,20 @@ public class ReportViewModel extends ViewModel {
     private MutableLiveData<ReportQuery> reportQuery = new MutableLiveData<>();
 
     @Inject
-    public ReportViewModel(ReminderRepository reminderRepository, ReportRepository repository, BindingModel bindingModel) {
+    public ReportViewModel(Application app, ReminderRepository reminderRepository, ReportRepository repository, BindingModel bindingModel) {
         this.bindingModel = bindingModel;
         this.reportRepository = repository;
         this.reminderRepository = reminderRepository;
+
+        //set initial month and time
+        Calendar calendar = Calendar.getInstance();
+        this.monthsNames = app.getResources().getStringArray(R.array.months);
+
+        String currentMonth = monthsNames[calendar.get(Calendar.MONTH)];
+        this.bindingModel.month.set(currentMonth);
+        int year = calendar.get(Calendar.YEAR);
+        this.bindingModel.year.set(String.valueOf(year));
+
         this.reminder = Transformations.switchMap(reminderId, reminderId -> {
             if (reminderId == null || reminderId == 0) {
                 return AbsentLiveData.create();
@@ -48,7 +61,7 @@ public class ReportViewModel extends ViewModel {
     }
 
 
-    public BindingModel bindingModel() {
+    BindingModel bindingModel() {
         return bindingModel;
     }
 
@@ -57,45 +70,42 @@ public class ReportViewModel extends ViewModel {
         return reminder;
     }
 
-    public void setReminderId(long id) {
+    void setReminderId(long id) {
         reminderId.setValue(id);
+
     }
 
-    public void setSelectedMonth(String month) {
+    void setSelectedMonth(int month) {
         ReportQuery query = reportQuery.getValue();
-        if (query == null) {
-            query = new ReportQuery();
-            query.setYear(month);
-        }
+        query.setMonth(month);
         reportQuery.setValue(query);
-        bindingModel.month.set(month);
+        bindingModel.month.set(monthsNames[month]);
     }
 
-    public void setSelectedYear(String year) {
+    void setSelectedYear(String year) {
 
         ReportQuery query = reportQuery.getValue();
-        if (query == null) {
-            query = new ReportQuery();
-            query.setYear(year);
-        }
+        query.setYear(year);
         reportQuery.setValue(query);
         bindingModel.year.set(year);
     }
 
-    public void filterReport(Filter filter) {
+    void filterReport(Filter filter) {
         ReportQuery query = reportQuery.getValue();
-        if (query == null) {
-            query = new ReportQuery();
-            query.setFilter(filter);
-        }
+        query.setFilter(filter);
         reportQuery.setValue(query);
     }
 
-    public LiveData<List<Alarms>> reports() {
+    LiveData<List<Alarms>> reports() {
         return report;
     }
 
-    public void loadReport() {
-        reportQuery.setValue(new ReportQuery());
+    void loadReport() {
+        ReportQuery query = reportQuery.getValue();
+        if (query == null) {
+            query = new ReportQuery();
+            query.setReminderId(reminderId.getValue());
+        }
+        reportQuery.setValue(query);
     }
 }

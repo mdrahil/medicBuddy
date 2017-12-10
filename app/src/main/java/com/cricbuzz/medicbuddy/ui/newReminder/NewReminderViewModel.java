@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModel;
 import android.text.TextUtils;
 
 import com.cricbuzz.medicbuddy.R;
-import com.cricbuzz.medicbuddy.base.App;
 import com.cricbuzz.medicbuddy.models.Reminders;
 import com.cricbuzz.medicbuddy.repository.repos.ReminderRepository;
 import com.cricbuzz.medicbuddy.utils.SingleLiveEvent;
@@ -55,7 +54,7 @@ public class NewReminderViewModel extends ViewModel {
         reminders.setDosage(bindingModel.dosage.get());
         reminders.setTime(bindingModel.time.get());
         reminders.setDays(bindingModel.getSelectedDays());
-        reminders.setId(System.currentTimeMillis());
+        reminders.setId(System.currentTimeMillis()/1000);
         return reminders;
     }
 

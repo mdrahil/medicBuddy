@@ -1,7 +1,6 @@
 package com.cricbuzz.medicbuddy.ui.report;
 
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -15,19 +14,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListPopupWindow;
 
 import com.cricbuzz.medicbuddy.R;
 import com.cricbuzz.medicbuddy.base.BaseFragment;
 import com.cricbuzz.medicbuddy.databinding.FragmentReportBinding;
 import com.cricbuzz.medicbuddy.di.Injectable;
-import com.cricbuzz.medicbuddy.models.Alarms;
-import com.cricbuzz.medicbuddy.models.Reminders;
 import com.cricbuzz.medicbuddy.utils.DialogUtil;
 import com.cricbuzz.medicbuddy.viewmodel.AppViewModelFactory;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -114,12 +108,13 @@ public class ReportFragment extends BaseFragment implements Injectable, EventHan
             mMothPopupWindow = DialogUtil.createPopupFromResource(getContext(), R.array.months);
             mMothPopupWindow.setAnchorView(mBinding.tvMonth);
             mMothPopupWindow.setOnItemClickListener((adapterView, view, pos, l) -> {
-                mViewModel.setSelectedMonth(adapterView.getItemAtPosition(pos).toString());
+                mViewModel.setSelectedMonth(pos);
                 mMothPopupWindow.dismiss();
             });
         }
         if (mYearPopupWindow != null && mYearPopupWindow.isShowing()) mYearPopupWindow.dismiss();
-        mMothPopupWindow.show();
+
+       if (!mMothPopupWindow.isShowing())mMothPopupWindow.show();
     }
 
     @Override
@@ -134,7 +129,7 @@ public class ReportFragment extends BaseFragment implements Injectable, EventHan
             });
         }
         if (mMothPopupWindow != null && mMothPopupWindow.isShowing()) mMothPopupWindow.dismiss();
-        mYearPopupWindow.show();
+        if (!mYearPopupWindow.isShowing()) mYearPopupWindow.show();
 
     }
 

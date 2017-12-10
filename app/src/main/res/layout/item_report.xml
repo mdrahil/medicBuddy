@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="com.cricbuzz.medicbuddy.utils.DateUtils" />
+
         <variable
             name="report"
             type="com.cricbuzz.medicbuddy.models.Alarms" />
@@ -14,30 +16,47 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal">
 
+
+
+        <TextView
+            style="@style/ReminderTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{DateUtils.getDayOfWeek(report.reminderDate)}" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/quicksand_light"
-            android:text="1 Jan 2012"
-            android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small" />
+            android:layout_weight=".5"
+            android:fontFamily="@font/quicksand_bold"
+            android:layout_marginStart="2dp"
+            android:text="@{DateUtils.getDayOfMonth(report.reminderDate)}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.PopupMenu.Large" />
+
+        <TextView
+            style="@style/ReminderTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{DateUtils.getDayOfWeek(report.actionDate)}" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginStart="2dp"
             android:fontFamily="@font/quicksand_light"
-            android:text="27 Jan 2012"
-            android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small" />
+            android:text="@{DateUtils.getTime(report.actionDate)}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:fontFamily="@font/quicksand_light"
-            android:text="Taken"
-            android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small" />
+            android:fontFamily="@font/quicksand_bold"
+            android:text="@{report.getStatusStringResource()}"
+            android:textColor="@{report.getStatusColor()}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
     </LinearLayout>
 </layout>

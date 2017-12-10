@@ -52,4 +52,5 @@
     <string name="action_at">Action At</string>
     <string name="status">Status</string>
     <string name="all">All</string>
+    <string name="pending">Pending</string>
 </resources>

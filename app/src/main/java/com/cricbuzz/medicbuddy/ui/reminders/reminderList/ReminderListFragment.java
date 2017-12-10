@@ -16,7 +16,6 @@ import com.cricbuzz.medicbuddy.R;
 import com.cricbuzz.medicbuddy.base.BaseFragment;
 import com.cricbuzz.medicbuddy.databinding.FragmentReminderListBinding;
 import com.cricbuzz.medicbuddy.di.Injectable;
-import com.cricbuzz.medicbuddy.models.Reminders;
 import com.cricbuzz.medicbuddy.ui.reminders.ReminderNavigator;
 import com.cricbuzz.medicbuddy.viewmodel.AppViewModelFactory;
 
@@ -44,7 +43,6 @@ public class ReminderListFragment extends BaseFragment implements Injectable {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_reminder_list, container, false);
         return mBinding.getRoot();
     }
@@ -57,7 +55,14 @@ public class ReminderListFragment extends BaseFragment implements Injectable {
 
         mBinding.rvReminders.setLayoutManager(new LinearLayoutManager(getContext()));
         mBinding.rvReminders.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        mAdapter = new ReminderListAdapter(reminders -> navigator.navigateToReport(reminders.getId()));
+        mAdapter = new ReminderListAdapter(reminders -> navigator.navigateToReport(reminders.getId())) {
+            @Override
+            protected void itemsUpdated() {
+                //after new reminder added scroll to new item
+                if (getItemCount() > 0)
+                    mBinding.rvReminders.smoothScrollToPosition(0);
+            }
+        };
         mBinding.rvReminders.setAdapter(mAdapter);
 
         mViewModel.loadReminders().observe(this, reminders -> {

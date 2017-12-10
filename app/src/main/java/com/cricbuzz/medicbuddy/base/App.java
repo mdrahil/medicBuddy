@@ -6,6 +6,7 @@ import android.app.Service;
 
 import com.cricbuzz.medicbuddy.BuildConfig;
 import com.cricbuzz.medicbuddy.di.AppInjector;
+import com.facebook.stetho.Stetho;
 
 import javax.inject.Inject;
 
@@ -35,6 +36,7 @@ public class App extends Application implements HasActivityInjector,HasServiceIn
         AppInjector.inject(this);
         if (BuildConfig.DEBUG){
             Timber.plant(new Timber.DebugTree());
+            Stetho.initializeWithDefaults(this);
         }
     }
 
